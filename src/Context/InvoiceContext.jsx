@@ -18,21 +18,34 @@ const InvoiceProvider = ({ children }) => {
   const [items, setItems] = useState([]);
   useEffect(() => {}, []);
   const handleSubmit = () => {
-    setItems(() => {
-      items.push(item);
-    });
-    setItem({
-      description: "",
-      quantity: 1,
-      rateperunit: "",
-      tax: "",
-      amount: "",
-    });
-    console.log(items);
+    // console.log(items);
+    setItems([...items, item]);
+  };
+  const handleEdit = (index) => {
+    document.getElementById("my_modal_5").showModal();
+    const editItem = items[index];
+    // console.log(editItem)
+    setItem(editItem);
+    items.splice(index, 1);
+    // console.log(items)
+    setItems(items, item);
+  };
+  const handleDelete = (index) => {
+    items.splice(index, 1);
+    setItems(items.length > 0 ? [...items] : []);
   };
   return (
     <InvoiceContext.Provider
-      value={{ client, setClient, items, item, setItem, handleSubmit }}
+      value={{
+        client,
+        setClient,
+        items,
+        item,
+        setItem,
+        handleSubmit,
+        handleEdit,
+        handleDelete,
+      }}
     >
       {children}
     </InvoiceContext.Provider>

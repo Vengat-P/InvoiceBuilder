@@ -2,8 +2,16 @@ import React, { useContext } from "react";
 import { InvoiceContext } from "../Context/InvoiceContext";
 
 const Home = () => {
-  const { client, setClient, items, item, setItem, handleSubmit } =
-    useContext(InvoiceContext);
+  const {
+    client,
+    setClient,
+    items,
+    item,
+    setItem,
+    handleSubmit,
+    handleEdit,
+    handleDelete,
+  } = useContext(InvoiceContext);
 
   return (
     <>
@@ -69,11 +77,85 @@ const Home = () => {
                 <th>Amount</th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+              {items.map((item, index) => {
+                return (
+                  <tr key={index}>
+                    <th>{index + 1}</th>
+                    <td>{item.description}</td>
+                    <td>{item.quantity}</td>
+                    <td>{item.rateperunit}</td>
+                    <td>{item.tax}</td>
+                    <td>{item.amount}</td>
+                    <td>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          handleEdit(index);
+                        }}
+                        className="btn"
+                      >
+                        <svg
+                          className="w-6 h-6 text-gray-800 dark:text-white"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width={24}
+                          height={24}
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          handleDelete(index);
+                        }}
+                        className="btn"
+                      >
+                        <svg
+                          className="w-6 h-6 text-gray-800 dark:text-white"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width={24}
+                          height={24}
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"
+                          />
+                        </svg>
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
           <button
             type="button"
-            onClick={() => document.getElementById("my_modal_5").showModal()}
+            onClick={() => {
+              document.getElementById("my_modal_5").showModal(),
+                setItem({
+                  description: "",
+                  quantity: 1,
+                  rateperunit: "",
+                  tax: "",
+                  amount: "",
+                });
+            }}
             className="bg-primary cursor-pointer"
           >
             <svg
@@ -171,21 +253,22 @@ const Home = () => {
                       className=" w-full p-3 border bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </label>
-
-                  <button
-                    type="submit"
-                    className="btn bg-primary  text-primary-content rounded-lg "
-                  >
-                    Update
-                  </button>
-                  <button
-                    onClick={() =>
-                      document.getElementById("my_modal_5").close()
-                    }
-                    className="btn bg-red-500  text-primary-content rounded-lg "
-                  >
-                    close
-                  </button>
+                  <div className="flex justify-between">
+                    <button
+                      onClick={() =>
+                        document.getElementById("my_modal_5").close()
+                      }
+                      className="btn bg-red-500  text-primary-content rounded-lg "
+                    >
+                      close
+                    </button>
+                    <button
+                      type="submit"
+                      className="btn bg-primary  text-primary-content rounded-lg "
+                    >
+                      Update
+                    </button>
+                  </div>
                 </form>
               </div>
             </div>
