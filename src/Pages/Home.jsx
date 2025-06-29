@@ -30,13 +30,22 @@ const Home = () => {
               To Pdf Preview
             </button>
           ) : (
-            <button
-              type="button"
-              className="btn bg-red-600 text-primary-content"
-              onClick={generatePdf}
-            >
-              Generate Pdf
-            </button>
+            <div className="">
+              <button
+                type="button"
+                className="btn bg-primary my-3 text-primary-content"
+                onClick={() => setStatus(true)}
+              >
+                To Edit
+              </button>
+              <button
+                type="button"
+                className="btn bg-red-600 text-primary-content"
+                onClick={generatePdf}
+              >
+                Generate Pdf
+              </button>
+            </div>
           )}
         </div>
         <div ref={pdfRef} className="grid element ">

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const NavBar = () => {
   return (
     <nav>
-      <li className="navbar bg-primary text-primary-content">
+      <li className="navbar  bg-primary text-primary-content">
         <Link to="/" className=" text-xl text-neutral-content">
           Invoice Builder
         </Link>
