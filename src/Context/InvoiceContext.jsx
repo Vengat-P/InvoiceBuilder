@@ -1,5 +1,5 @@
-
-import { html2pdf } from "html2pdf.js";
+import html2canvas from "html2canvas-pro";
+import jsPDF from "jspdf";
 import React, { createContext, useEffect, useRef, useState } from "react";
 export const InvoiceContext = createContext();
 const InvoiceProvider = ({ children }) => {
@@ -17,6 +17,7 @@ const InvoiceProvider = ({ children }) => {
   });
   const [items, setItems] = useState([]);
   const [status, setStatus] = useState(true);
+    const pdfRef = useRef();
   useEffect(() => {}, []);
   const handleSubmit = () => {
     // console.log(items);
@@ -36,6 +37,27 @@ const InvoiceProvider = ({ children }) => {
     setItems(items.length > 0 ? [...items] : []);
   };
 
+  const generatePdf = async () => {
+    setStatus(false);
+    console.log(pdfRef);
+
+    if (pdfRef.current) {
+      try {
+        const canvas = await html2canvas(pdfRef.current, {
+          scale: 4,
+          useCORS: true,
+        });
+        const imgData = canvas.toDataURL("image/jpeg", 1.0);
+        const pdf = new jsPDF("p", "mm", "a4");
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfheight = (canvas.height * pdfWidth) / canvas.width;
+        pdf.addImage(imgData, "JPEG", 0, 0, pdfWidth, pdfheight);
+        pdf.save(`${client.invoiceno}.pdf`);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
   return (
     <InvoiceContext.Provider
       value={{
@@ -48,7 +70,9 @@ const InvoiceProvider = ({ children }) => {
         handleEdit,
         handleDelete,
         status,
-        setStatus
+        setStatus,
+        pdfRef,
+        generatePdf
       }}
     >
       {children}
