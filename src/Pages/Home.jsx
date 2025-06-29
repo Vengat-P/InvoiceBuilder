@@ -158,7 +158,7 @@ const Home = () => {
 
             <table className=" table text-black mt-20 ">
               {/* head */}
-              <thead className=" text-black lg:text-3xl">
+              <thead className=" text-black border-b-black border-b-2 sm:text-xs md:text-xl lg:text-3xl">
                 <tr>
                   <th>S.no</th>
                   <th>Description</th>
@@ -167,7 +167,7 @@ const Home = () => {
                   <th>Amount</th>
                 </tr>
               </thead>
-              <tbody className="text-black lg:text-3xl">
+              <tbody className="text-black sm:text-xs md:text-xl lg:text-3xl">
                 {items.map((item, index) => {
                   return (
                     <tr key={index} className="border-0">
@@ -237,19 +237,24 @@ const Home = () => {
                     </tr>
                   );
                 })}
-                <tr></tr>
-                <tr className=" mb-36"></tr>
+                <tr>
+                  <td>
+                    {status === false && (
+                      <hr className="sm:mt-24 sm:h-24 md:mt-48 md:h-48 lg:mt-96 lg:h-96 border-0" />
+                    )}
+                  </td>
+                </tr>
               </tbody>
-              {status === false && <hr className="mt-96 h-96 border-0" />}
-              <tfoot className="text-black lg:text-2xl ">
+
+              <tfoot className="text-black sm:text-xs md:text-xl lg:text-2xl border-black border-t-2">
                 <tr>
                   <td></td>
                   <td></td>
                   <td></td>
                   <td>
-                    <h1>Sub Total Amount </h1>
-                    <h1>Tax Amount(5%)</h1>
-                    <h1 className="text-xl lg:text-3xl font-bold">
+                    <h1>SubTotal </h1>
+                    <h1>Tax(5%)</h1>
+                    <h1 className="sm:text-xs md:text-xl lg:text-3xl font-bold">
                       Grand Total
                     </h1>
                   </td>
@@ -288,15 +293,6 @@ const Home = () => {
                           (5 / 100)}
                     </h1>
                   </td>
-                </tr>
-                <tr>
-                  <td>
-                    <h1 className="lg:text-2xl">Owner Signature</h1>
-                  </td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
                 </tr>
               </tfoot>
             </table>
