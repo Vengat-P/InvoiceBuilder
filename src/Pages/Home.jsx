@@ -24,10 +24,10 @@ const Home = () => {
           {status ? (
             <button
               type="button"
-              className="btn bg-primary text-primary-content"
+              className="btn bg-primary my-3 text-primary-content"
               onClick={() => setStatus(false)}
             >
-              Preview
+              To Pdf Preview
             </button>
           ) : (
             <button
@@ -94,7 +94,7 @@ const Home = () => {
                   )}
                 </label>
                 <label className="flex w-auto justify-center items-center gap-3">
-                  <span className="w-32">Date</span>
+                  <span className="w-32 lg:w-64">Date</span>
                   {status ? (
                     <input
                       type="date"
