@@ -1,5 +1,6 @@
-import React, { createContext, useEffect, useState } from "react";
 
+import { html2pdf } from "html2pdf.js";
+import React, { createContext, useEffect, useRef, useState } from "react";
 export const InvoiceContext = createContext();
 const InvoiceProvider = ({ children }) => {
   const [client, setClient] = useState({
@@ -12,10 +13,10 @@ const InvoiceProvider = ({ children }) => {
     description: "",
     quantity: 1,
     rateperunit: "",
-    tax: "",
     amount: "",
   });
   const [items, setItems] = useState([]);
+  const [status, setStatus] = useState(true);
   useEffect(() => {}, []);
   const handleSubmit = () => {
     // console.log(items);
@@ -34,6 +35,7 @@ const InvoiceProvider = ({ children }) => {
     items.splice(index, 1);
     setItems(items.length > 0 ? [...items] : []);
   };
+
   return (
     <InvoiceContext.Provider
       value={{
@@ -45,6 +47,8 @@ const InvoiceProvider = ({ children }) => {
         handleSubmit,
         handleEdit,
         handleDelete,
+        status,
+        setStatus
       }}
     >
       {children}
